@@ -1,7 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../configs/Database.js";
 
-// ✅ BENAR
 const Logs = db.define("Log", {
 
     id:{
@@ -14,7 +13,7 @@ const Logs = db.define("Log", {
         allowNull: false,
     },
     logDate:{
-        type: DataTypes.DATEONLY,
+        type: DataTypes.STRING,
         allowNull: false,
     },
     userId:{

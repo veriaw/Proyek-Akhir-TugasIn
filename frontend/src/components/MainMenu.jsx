@@ -133,7 +133,7 @@ const MainMenu = () => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-200 relative">
+    <div className="min-h-screen w-full bg-white relative">
       {/* Hamburger Button */}
       <button
         className="fixed top-4 left-4 z-50 text-3xl text-black bg-white rounded-md p-2 shadow"
@@ -190,22 +190,28 @@ const MainMenu = () => {
         <h2 className="text-xl font-semibold mb-4">Tugas Anda</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tasks.map((task, index) => (
-            <div
-              key={index}
-              onClick={() => handleDetail(task)}
-              className="bg-white p-4 rounded-lg shadow hover:shadow-lg cursor-pointer transition"
-            >
-              <h3 className="font-bold text-lg mb-1">{task.title}</h3>
-              <p className="text-sm text-gray-700">{task.description}</p>
-              <p className="text-xs text-gray-500 mt-1">Status: {task.status}</p>
-              <p className="text-xs text-gray-500">Mulai: {task.startDate} | Deadline: {task.endDate}</p>
-              <div className="flex gap-2 mt-3">
-                <button onClick={(e) => { e.stopPropagation(); handleEdit(task); }} className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">Edit</button>
-                <button onClick={(e) => { e.stopPropagation(); handleDelete(task.id); }} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</button>
+          {tasks.map((task, index) => {
+            let cardColor = "bg-gray-200";
+            if (task.status === "In Progress") cardColor = "bg-yellow-200";
+            else if (task.status === "Done") cardColor = "bg-green-200";
+            else if (task.status === "To Do") cardColor = "bg-gray-200";
+            return (
+              <div
+                key={index}
+                onClick={() => handleDetail(task)}
+                className={`${cardColor} p-4 rounded-lg shadow hover:shadow-lg cursor-pointer transition`}
+              >
+                <h3 className="font-bold text-lg mb-1">{task.title}</h3>
+                <p className="text-sm text-gray-700">{task.description}</p>
+                <p className="text-xs text-gray-500 mt-1">Status: {task.status}</p>
+                <p className="text-xs text-gray-500">Mulai: {task.startDate} | Deadline: {task.endDate}</p>
+                <div className="flex gap-2 mt-3">
+                  <button onClick={(e) => { e.stopPropagation(); handleEdit(task); }} className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">Edit</button>
+                  <button onClick={(e) => { e.stopPropagation(); handleDelete(task.id); }} className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">Hapus</button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
 
           <div
             onClick={() => navigate('/task')}
